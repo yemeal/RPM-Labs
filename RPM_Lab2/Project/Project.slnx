@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="../SOLID_Fundamentals/SOLID_Fundamentals.csproj" Id="e4075ac8-5c76-4345-a9db-a2e1df64cfc4" />
   <Project Path="Project.csproj" />
 </Solution>
