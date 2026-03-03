@@ -1,4 +1,4 @@
-﻿namespace SOLID_Fundamentals
+﻿namespace SOLID_Fundamentals.Domain
 {
     public class Order
     {
