@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DiscountCalculator\Domain\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 
