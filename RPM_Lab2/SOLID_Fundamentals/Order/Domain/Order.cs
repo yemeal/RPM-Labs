@@ -1,4 +1,4 @@
-﻿namespace SOLID_Fundamentals.Domain
+﻿namespace SOLID_Fundamentals.Order.Domain
 {
     public class Order
     {
@@ -8,5 +8,6 @@
         public List<string> Items { get; set; }
         public string CustomerEmail { get; set; }
         public string CustomerPhone { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SOLID_Fundamentals.Interfaces
+namespace SOLID_Fundamentals.Order.Interfaces
 {
-    public interface IDatabaseService
+    public interface IDatabaseMaintenanceService
     {
         void ExportToExcel(string filePath);
         void BackupDatabase();

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace SOLID_Fundamentals.Services
 {
-    public class OrderReportService : IOrderReportService
+    public class ConsoleLoggingService : ILoggingService
     {
-        public void GenerateReport(DateTime from, DateTime to)
+        public void Log(string message)
         {
-            Console.WriteLine("Report generated");
+            Console.WriteLine($"[LOG] {message}");
         }
     }
 }

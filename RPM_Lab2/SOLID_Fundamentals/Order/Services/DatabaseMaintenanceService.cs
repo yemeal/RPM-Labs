@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SOLID_Fundamentals.Interfaces;
+using SOLID_Fundamentals.Order.Interfaces;
 
-namespace SOLID_Fundamentals.Services
+namespace SOLID_Fundamentals.Order.Services
 {
-    public class DatabaseService : IDatabaseService
+    public class DatabaseMaintenanceService : IDatabaseMaintenanceService
     {
         public void ExportToExcel(string filePath)
         {

@@ -18,5 +18,9 @@ namespace SOLID_Fundamentals.Services
         {
             Console.WriteLine("Invoice generated");
         }
+        private void GenerateReceipt(Order order) 
+        {
+            Console.WriteLine("Receipt generated");
+        }
     }
 }

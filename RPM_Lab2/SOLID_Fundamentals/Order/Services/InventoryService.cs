@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SOLID_Fundamentals.Domain
+namespace SOLID_Fundamentals.Services
 {
-    public enum NotificationChannel
+    internal class InventoryService
     {
-        Email,
-        Sms
     }
 }
