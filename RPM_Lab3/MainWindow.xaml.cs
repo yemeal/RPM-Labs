@@ -1,6 +1,7 @@
 ﻿using RPM_Lab3.Creators;
 using System.Windows;
 using System.Windows.Controls;
+using RPM_Lab3.AbstractFactory;
 
 namespace RPM_Lab3
 {
@@ -11,6 +12,7 @@ namespace RPM_Lab3
             InitializeComponent();
         }
 
+        private IFigureFactory currentFactory;
         private void btnDraw_Click(object sender, RoutedEventArgs e)
         {
             drawPanel.Children.Clear();
@@ -19,34 +21,24 @@ namespace RPM_Lab3
 
             string selectedColor = ((ComboBoxItem)comboBoxColors.SelectedItem).Content.ToString();
 
-            CircleCreator circleCreator = null;
-            SquareCreator squareCreator = null;
-            TriangleCreator triangleCreator = null;
-
             switch (selectedColor)
             {
-                case "Red": 
-                    circleCreator = new RedCircleCreator();
-                    squareCreator = new RedSquareCreator();
-                    triangleCreator = new RedTriangleCreator();
+                case "Red":
+                    currentFactory = new RedFactory();
                     break;
                 case "Blue":
-                    circleCreator = new BlueCircleCreator();
-                    squareCreator = new BlueSquareCreator();
-                    triangleCreator = new BlueTriangleCreator();
+                    currentFactory = new BlueFactory();
                     break;
                 case "Green":
-                    circleCreator = new GreenCircleCreator();
-                    squareCreator = new GreenSquareCreator();
-                    triangleCreator = new GreenTriangleCreator();
+                    currentFactory = new GreenFactory();
                     break;
                 default:
                     return;
             }
 
-            var circle = circleCreator.CreateCircle();
-            var square = squareCreator.CreateSquare();
-            var triangle = triangleCreator.CreateTriangle();
+            var circle = currentFactory.CreateCircle();
+            var square = currentFactory.CreateSquare();
+            var triangle = currentFactory.CreateTriangle();
 
             drawPanel.Children.Add(circle.CreateUIElement());
             drawPanel.Children.Add(square.CreateUIElement());
