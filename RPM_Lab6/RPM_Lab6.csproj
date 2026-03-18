@@ -7,11 +7,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Flyweight\" />
-    <Folder Include="Bridge\" />
-    <Folder Include="Decorator\" />
-    <Folder Include="Proxy\" />
-  </ItemGroup>
-
 </Project>
