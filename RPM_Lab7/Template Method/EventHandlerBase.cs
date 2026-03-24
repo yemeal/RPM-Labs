@@ -28,7 +28,7 @@ public abstract class EventHandlerBase(IFormatStrategy formatStrategy)
     protected abstract void SendMessage(string message);
     protected abstract void LogResult();
 
-    protected void ProcessEvent(MetricEventArgs e)
+    public void ProcessEvent(MetricEventArgs e)
     {
         var message = FormatMessage(e.EventType, e.Data);
         SendMessage(message);
