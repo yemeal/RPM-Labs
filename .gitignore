@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# JetBrains IDE (Rider, WebStorm, IntelliJ IDEA и т.д.)
+.idea/
