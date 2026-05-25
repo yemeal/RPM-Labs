@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using PhoneBook.Models;
 using PhoneBook.ViewModels;
 using PhoneBook.Services;
@@ -60,11 +61,9 @@ static void ContactRejectsInvalidPhone()
 static void ViewModelAddsContactClearsInputAndPromptsInfo()
 {
     var mockDialog = new MockDialogService();
-    var viewModel = new ContactsListViewModel(mockDialog)
-    {
-        Name = "Мария",
-        Phone = "+79135554433"
-    };
+    var viewModel = CreateViewModel(mockDialog);
+    viewModel.Name = "Мария";
+    viewModel.Phone = "+79135554433";
 
     AssertTrue(viewModel.AddCommand.CanExecute(null), "AddCommand must be enabled for valid input.");
     viewModel.AddCommand.Execute(null);
@@ -79,11 +78,9 @@ static void ViewModelAddsContactClearsInputAndPromptsInfo()
 static void ViewModelPreventsDuplicateAndPromptsWarning()
 {
     var mockDialog = new MockDialogService();
-    var viewModel = new ContactsListViewModel(mockDialog)
-    {
-        Name = "Мария",
-        Phone = "+79135554433"
-    };
+    var viewModel = CreateViewModel(mockDialog);
+    viewModel.Name = "Мария";
+    viewModel.Phone = "+79135554433";
 
     // Добавляем первый контакт
     viewModel.AddCommand.Execute(null);
@@ -102,11 +99,9 @@ static void ViewModelPreventsDuplicateAndPromptsWarning()
 static void ViewModelDeletesContactOnConfirmation()
 {
     var mockDialog = new MockDialogService { ConfirmationResult = true };
-    var viewModel = new ContactsListViewModel(mockDialog)
-    {
-        Name = "Петр",
-        Phone = "9130001122"
-    };
+    var viewModel = CreateViewModel(mockDialog);
+    viewModel.Name = "Петр";
+    viewModel.Phone = "9130001122";
 
     viewModel.AddCommand.Execute(null);
     var contact = viewModel.Contacts[0];
@@ -120,11 +115,9 @@ static void ViewModelDeletesContactOnConfirmation()
 static void ViewModelRetainsContactOnCancellation()
 {
     var mockDialog = new MockDialogService { ConfirmationResult = false };
-    var viewModel = new ContactsListViewModel(mockDialog)
-    {
-        Name = "Петр",
-        Phone = "9130001122"
-    };
+    var viewModel = CreateViewModel(mockDialog);
+    viewModel.Name = "Петр";
+    viewModel.Phone = "9130001122";
 
     viewModel.AddCommand.Execute(null);
     var contact = viewModel.Contacts[0];
@@ -139,13 +132,23 @@ static void ViewModelRetainsContactOnCancellation()
 static void ViewModelPreventsInvalidAdd()
 {
     var mockDialog = new MockDialogService();
-    var viewModel = new ContactsListViewModel(mockDialog)
-    {
-        Name = string.Empty,
-        Phone = "123"
-    };
+    var viewModel = CreateViewModel(mockDialog);
+    viewModel.Name = string.Empty;
+    viewModel.Phone = "123";
 
     AssertFalse(viewModel.AddCommand.CanExecute(null), "AddCommand must be disabled for invalid input.");
+}
+
+/// <summary>
+/// Фабричный метод для создания ContactsListViewModel со всеми mock-зависимостями.
+/// </summary>
+static ContactsListViewModel CreateViewModel(MockDialogService? dialog = null)
+{
+    return new ContactsListViewModel(
+        dialog ?? new MockDialogService(),
+        new MockNavigationService(),
+        new MockContactRepository()
+    );
 }
 
 static void AssertEqual<T>(T expected, T actual)
@@ -217,3 +220,25 @@ public class MockDialogService : IDialogService
         return ConfirmationResult;
     }
 }
+
+/// <summary>
+/// Тестовый Mock навигации — не выполняет реальную навигацию.
+/// </summary>
+public class MockNavigationService : INavigationService
+{
+    public object? CurrentViewModel { get; private set; }
+
+    public void NavigateTo<TViewModel>(object? parameter = null) where TViewModel : class
+    {
+        // В тестах навигация не выполняется
+    }
+}
+
+/// <summary>
+/// Тестовый Mock репозитория контактов — хранит контакты в памяти.
+/// </summary>
+public class MockContactRepository : IContactRepository
+{
+    public ObservableCollection<Contact> Contacts { get; } = new();
+}
+
