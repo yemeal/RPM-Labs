@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: PhoneBookDB_Emelyanov_2307d2
+      POSTGRES_USER: phonebook
+      POSTGRES_PASSWORD: phonebook123
+    ports:
+      - "25432:5432"
+    volumes:
+      - ./init-db:/docker-entrypoint-initdb.d
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
